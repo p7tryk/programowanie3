@@ -1,0 +1,2 @@
+zwieksz jasnosc
+zmiejsz jasnosc
