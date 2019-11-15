@@ -3,7 +3,8 @@ class account
  private:
   double m_balance;
   int m_number;
-  double m_interest;
+  static double m_interest;
+  static int lastAccount;
  public:
   account();
   account(int input);
@@ -14,21 +15,20 @@ class account
   bool transferTo(account * acc, double amount);
   void capitalize();
   void capitalize(double amount);
-  double getInterest() const;
-  void setInterest(double interest = 0);
+  inline double getInterest() const{ return m_interest;};
+  static void setInterest(double interest = 0);
 };
 
 account::account()
 {
-  m_number = 0;
+  lastAccount++;
+  m_number = lastAccount;
   m_balance = 0;
-  m_interest = 0;
 }
 account::account(int input)
 {
   m_number = input;
   m_balance = 0;
-  m_interest = 0;
 }
 
 double account::getBalance() const
@@ -75,10 +75,6 @@ void account::capitalize(double amount)
   m_balance *= 1. + amount/100;
 }
 
-double account::getInterest() const
-{
-  return m_interest;
-}
 void account::setInterest(double amount)
 {
   m_interest = amount;
