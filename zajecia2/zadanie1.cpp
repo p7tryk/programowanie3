@@ -40,16 +40,20 @@ void menu(account * acc)
 int main()
 {
   account user(1337);
-  menu(&user);
+  //menu(&user);
   account test(420);
 
-  test.deposit(200);
-  test.info();
   user.deposit(100);
-  user.info();
   user.transferTo(&test, 80);
   test.info();
-  user.info();  
-  
+  user.info();
+  for(int i=0;i<10;i++)
+    {
+      printf("\n");
+      user.capitalize(10.);
+      test.capitalize(10.);
+      test.info();
+      user.info();
+    }
 }
 	 
