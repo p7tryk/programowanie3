@@ -34,7 +34,7 @@ angle::angle(const angle  & anglep)
 }
 angle::~angle()
 {
-  printf("destruktor\n");
+  printf("destruktor %p\n", this);
 }
 double angle::getAngle()
 {

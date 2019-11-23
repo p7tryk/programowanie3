@@ -12,7 +12,7 @@ int main()
   int count = 1;
   double x,y = 0;
   
-  for(int i=0;i<100;i++)
+  for(int i=0;i<1000;i++)
     {
       h =(double) size;
       count = 0;
