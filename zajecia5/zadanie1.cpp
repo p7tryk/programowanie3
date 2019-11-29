@@ -3,6 +3,7 @@
 #include "account.h"
 #include "student.h"
 #include "vipaccount.h"
+
 double account::m_interest;
 double studentAccount::m_interest;
 double vipAccount::m_interest;

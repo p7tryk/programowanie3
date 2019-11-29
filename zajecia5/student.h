@@ -45,3 +45,5 @@ void studentAccount::capitalize()
 {
   m_balance *= 1. + m_interest/100;
 }
+
+

@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 class account
 {
  protected:
@@ -75,3 +77,8 @@ void account::setInterest(double amount)
 {
   m_interest = amount;
 }
+
+
+
+
+

@@ -1,5 +1,7 @@
 #include "account.h"
 
+
+
 class vipAccount : public account{
  private:
   static double m_interest;
@@ -29,7 +31,7 @@ bool vipAccount::withdraw(double amount)
 }
 void vipAccount::info() const
 {
-  printf("konto student ");
+  printf("konto vip ");
   account::info();
 }
 bool vipAccount::transferTo(account * target, double amount, double comm)
