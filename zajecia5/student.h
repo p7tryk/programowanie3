@@ -7,7 +7,7 @@ class studentAccount : public account{
   studentAccount(double amount =0);
   ~studentAccount();    
   bool withdraw(double amount);
-  void info() const;
+  virtual void info() const;
   bool transferTo(account * target, double amount, double comm = 2);
   inline double getInterest() const{ return m_interest;};
   static void setInterest(double interest = 0);

@@ -7,14 +7,17 @@ class account
  protected:
   double m_balance;
   int m_number;
+  friend class accountList;
  private:
   static double m_interest;
   static int lastAccount;
+  account * m_next;
+  account * m_prev;
  public:
   account();
   account(double amount);
   double getBalance() const;
-  void info() const;
+  virtual void info() const;
   bool deposit(double amount);
   bool withdraw(double amount);
   bool transferTo(account * target, double amount, double comm = 0);

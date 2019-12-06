@@ -9,7 +9,7 @@ class vipAccount : public account{
   vipAccount(double amount =0);
   ~vipAccount();    
   bool withdraw(double amount);
-  void info() const;
+  virtual void info() const;
   bool transferTo(account * target, double amount, double comm = 0.5);
   inline double getInterest() const{ return m_interest;};
   static void setInterest(double interest = 0);

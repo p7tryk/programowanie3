@@ -3,6 +3,7 @@
 #include "account.h"
 #include "student.h"
 #include "vipaccount.h"
+#include "list.h"
 
 double account::m_interest;
 double studentAccount::m_interest;
@@ -15,8 +16,26 @@ int main()
 {
   
   account acc1(100);
-  studentAccount acc2(100);
-  studentAccount acc3(100);
+  studentAccount acc2(120);
+  vipAccount acc3(140);
+  accountList list;
+  
+  list.addBegin(&acc1);
+  list.addBegin(&acc2);
+  list.addBegin(&acc3);
+  list.printall();
+  list.info();
+  /*
+  if(list.findByNum(1002)!=nullptr)
+    list.findByNum(1002)->info();
+  else
+    printf("nie ma takiego konta");
+  */
+  printf("\n\n");
+  list.remove(list.findByNum(1001));
+  list.printall();
+  list.removeall();
+  /*
   acc1.setInterest(2);
   acc2.setInterest(5);
   acc1.info();
@@ -27,7 +46,8 @@ int main()
   acc1.info();
   acc2.info();
   acc3.info();
-
+  */
+  
    /*
   account test;
   account user;
