@@ -1,4 +1,9 @@
+#pragma once 
 #include "account.h"
+#include <fstream>
+#include <iostream>
+#include "student.h"
+#include "vipaccount.h"
 
 class accountList{
  private:
@@ -15,7 +20,14 @@ class accountList{
   void printall();
   void removeall();
   int remove(account * ptr);
+  void capitalize();
   account * findByNum(int number) const;
+  account * getBegin() {return m_begin;};
+  account * getEnd() {return m_end;};
+  account * getNext(account * ptr) {return ptr->m_next;};
+  account * getPrev(account * ptr) {return ptr->m_prev;};
+  bool writeFile(const char * filename);
+  bool readFile(const char * filename);
 };
 
 accountList::accountList()
@@ -89,11 +101,10 @@ void accountList::info()
 void accountList::printall()
 {
   account * ptr = m_begin;
-  for(int i=0;i<m_size;i++)
+  for(ptr = m_begin;ptr;ptr=ptr->m_next)
     {
       printf("this = %p, prev = %p, next = %p\n",ptr,ptr->m_prev,ptr->m_next);
       ptr->info();
-      ptr = ptr->m_next;
     }
 }
 account * accountList::findByNum(int number) const
@@ -126,8 +137,60 @@ int accountList::remove(account * ptr)
     }
   else
     ptr->m_prev->m_next=ptr->m_next;
-  
-  delete ptr;
+  printf("%p\n",ptr);
+  free(ptr);
   m_size--;
   return m_size;
 }
+void accountList::capitalize()
+{
+  account * ptr = m_begin;
+  for(ptr = m_begin;ptr;ptr=ptr->m_next)
+    {
+      ptr->capitalize();
+    }
+}
+
+bool accountList::writeFile(const char * filename)
+{
+  FILE * file = fopen(filename,"w");
+  if(file == NULL)
+    return false;
+  //iostream jest GLUPIE
+  for(account * ptr = m_begin;ptr;ptr=ptr->m_next)
+    {
+      ptr->write(file);
+    }
+}
+bool accountList::readFile(const char * filename)
+{
+  FILE * file = fopen(filename,"r");
+  if(file == NULL)
+    return false;
+  //iostream jest GLUPIE
+  char  mode = 0;
+  int  accnumber = 0;
+  double  balance = 0;
+  int read =0;
+  account * ptr = nullptr;
+  
+  while(true)
+    {
+      if(fscanf(file,"%c%d%lf",&mode,&accnumber,&balance) ==EOF)
+	break;
+      read++;
+      switch(mode)
+	{
+	case 's':
+	  ptr = new studentAccount(balance,accnumber);
+	  this->addBegin(ptr);
+	  break;
+	  
+	case 'v':
+	  printf("vip\n");
+	  break;
+	}
+      
+    }
+}
+

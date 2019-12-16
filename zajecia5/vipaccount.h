@@ -1,10 +1,13 @@
+#pragma once
 #include "account.h"
-
 
 
 class vipAccount : public account{
  private:
   static double m_interest;
+  friend class acccountList;
+ protected:
+  vipAccount(double amount, int accnumber);
  public:
   vipAccount(double amount =0);
   ~vipAccount();    
@@ -14,6 +17,7 @@ class vipAccount : public account{
   inline double getInterest() const{ return m_interest;};
   static void setInterest(double interest = 0);
   void capitalize();
+  virtual void write(FILE * file) const;
 };
 
 vipAccount::vipAccount(double amount) : account(amount)
@@ -46,4 +50,8 @@ void vipAccount::setInterest(double interest)
 void vipAccount::capitalize()
 {
   m_balance *= 1. + vipAccount::m_interest/100;
+}
+void vipAccount::write(FILE * file) const
+{
+  fprintf(file, "v\t%d\t%0.2lf\n",m_number,getBalance());
 }

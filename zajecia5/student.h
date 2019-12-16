@@ -1,8 +1,12 @@
+#pragma once
 #include "account.h"
 
 class studentAccount : public account{
  private:
   static double m_interest;
+  friend class accountList;
+ protected:
+  studentAccount(double amount, int accnumber);
  public:
   studentAccount(double amount =0);
   ~studentAccount();    
@@ -11,7 +15,8 @@ class studentAccount : public account{
   bool transferTo(account * target, double amount, double comm = 2);
   inline double getInterest() const{ return m_interest;};
   static void setInterest(double interest = 0);
-  void capitalize();
+  virtual void capitalize();
+  virtual void write(FILE * file) const;
 };
 
 studentAccount::studentAccount(double amount) : account(amount)
@@ -45,5 +50,8 @@ void studentAccount::capitalize()
 {
   m_balance *= 1. + m_interest/100;
 }
-
+void studentAccount::write(FILE * file) const
+{
+  fprintf(file, "s\t%d\t%0.2lf\n",m_number,getBalance());
+}
 

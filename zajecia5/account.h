@@ -1,18 +1,18 @@
 #pragma once
 
-
-
 class account
 {
  protected:
   double m_balance;
   int m_number;
   friend class accountList;
+  account(double amount, int accnumber);
  private:
   static double m_interest;
   static int lastAccount;
   account * m_next;
   account * m_prev;
+  
  public:
   account();
   account(double amount);
@@ -21,16 +21,23 @@ class account
   bool deposit(double amount);
   bool withdraw(double amount);
   bool transferTo(account * target, double amount, double comm = 0);
-  void capitalize();
+  virtual void capitalize();
   void capitalize(double amount);
   double getInterest() const{ return m_interest;};
   static void setInterest(double amount = 0);
+  virtual void write(FILE * file) const = 0;
 };
 
 account::account(double amount = 0)
 {
   lastAccount++;
   m_number = lastAccount;
+  m_balance = amount;
+  m_interest = 0;
+}
+account::account(double amount, int accnumber)
+{
+  m_number = accnumber;
   m_balance = amount;
   m_interest = 0;
 }
