@@ -96,7 +96,7 @@ void accountList::addEnd(account * accountptr)
 void accountList::info()
 {
  
-  printf("begin = %p, end = %p\n",m_begin,m_end);
+  printf("\nbegin = %p, end = %p\n",m_begin,m_end);
 }
 void accountList::printall()
 {
@@ -199,7 +199,8 @@ bool accountList::readFile(const char * filename)
 	  break;
 	  
 	case 'v':
-	  printf("vip\n");
+	  ptr = new vipAccount(balance,accnumber);
+	  this->addBegin(ptr);
 	  break;
 	}
       

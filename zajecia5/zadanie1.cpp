@@ -23,25 +23,12 @@ double sum(accountList * list)
 
 int main()
 {
-  
-  studentAccount acc1(100);
-  studentAccount acc2(100);
-  studentAccount acc3(100);
   accountList list;
-  //test;
-  acc1.setInterest(5);
-  acc2.setInterest(2);
-
-  
-  list.addBegin(&acc3);
-  list.addBegin(&acc2);
-  list.addBegin(&acc1);
+  list.readFile("data.out");
   list.printall();
   list.info();
-  list.capitalize();
-  printf("\n\n");
-  //  list.remove(list.findByNum(1001));
-  list.printall();
+  //list.capitalize();
+  //list.remove(list.findByNum(1001));
   list.writeFile("data.out");
   double sum1 = sum(&list);
   printf("suma=%.2lf; srednia=%.2lf\n\n",sum1,sum1/list.getSize());

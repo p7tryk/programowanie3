@@ -5,9 +5,9 @@
 class vipAccount : public account{
  private:
   static double m_interest;
-  friend class acccountList;
+  friend class accountList;
  protected:
-  vipAccount(double amount, int accnumber);
+ vipAccount(double amount, int accnumber) : account(amount,accnumber) {};
  public:
   vipAccount(double amount =0);
   ~vipAccount();    
