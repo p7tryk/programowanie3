@@ -153,20 +153,32 @@ void accountList::capitalize()
 
 bool accountList::writeFile(const char * filename)
 {
+  printf("\nwriting to %s\n", filename);
   FILE * file = fopen(filename,"w");
+  int written = 0;
   if(file == NULL)
-    return false;
+    {
+      printf("couldnt write to %s\n",filename);
+      return false;
+    }
   //iostream jest GLUPIE
   for(account * ptr = m_begin;ptr;ptr=ptr->m_next)
     {
       ptr->write(file);
+      written++;
     }
+  printf("written %d records\n\n", written);
+  fclose(file);
 }
 bool accountList::readFile(const char * filename)
 {
+  printf("\nreading from %s\n", filename);
   FILE * file = fopen(filename,"r");
   if(file == NULL)
-    return false;
+    {
+      printf("couldnt read from %s\n",filename);
+      return false;
+    }
   //iostream jest GLUPIE
   char  mode = 0;
   int  accnumber = 0;
@@ -176,7 +188,7 @@ bool accountList::readFile(const char * filename)
   
   while(true)
     {
-      if(fscanf(file,"%c%d%lf",&mode,&accnumber,&balance) ==EOF)
+      if(fscanf(file,"%c%d%lf\n",&mode,&accnumber,&balance) ==EOF)
 	break;
       read++;
       switch(mode)
@@ -192,5 +204,7 @@ bool accountList::readFile(const char * filename)
 	}
       
     }
+  printf("read %d records\n\n",read);
+  fclose(file);
 }
 

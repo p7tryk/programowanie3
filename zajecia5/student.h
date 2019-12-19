@@ -6,7 +6,7 @@ class studentAccount : public account{
   static double m_interest;
   friend class accountList;
  protected:
-  studentAccount(double amount, int accnumber);
+ studentAccount(double amount, int accnumber) : account(amount,accnumber){};
  public:
   studentAccount(double amount =0);
   ~studentAccount();    

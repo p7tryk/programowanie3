@@ -28,7 +28,7 @@ int main()
   studentAccount acc2(100);
   studentAccount acc3(100);
   accountList list;
-  
+  //test;
   acc1.setInterest(5);
   acc2.setInterest(2);
 
@@ -42,9 +42,15 @@ int main()
   printf("\n\n");
   //  list.remove(list.findByNum(1001));
   list.printall();
+  list.writeFile("data.out");
   double sum1 = sum(&list);
-  printf("suma=%.2lf; srednia=%.2lf\n",sum1,sum1/list.getSize());
+  printf("suma=%.2lf; srednia=%.2lf\n\n",sum1,sum1/list.getSize());
+  list.removeall();
+  
+  
   list.readFile("data.out");
+  list.printall();
+  list.removeall();
   
   
   
