@@ -29,7 +29,7 @@ class accountList{
   bool writeFile(const char * filename);
   bool readFile(const char * filename);
 };
-
+//test
 accountList::accountList()
 {
   m_begin = m_end = nullptr;
