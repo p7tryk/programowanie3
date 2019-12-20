@@ -10,16 +10,18 @@ class vector2D {
  public:
   vector2D(double x=0, double y=0);
   ~vector2D();
+  vector2D(const vector2D &vec);
   double getY(){return m_y;};
   double getX(){return m_x;};
   double length() const;
-  void printVector2D() const;
+  void print() const;
 
   bool operator==(const vector2D& vec);
   bool operator!=(const vector2D& vec);
   bool operator<(const vector2D& vec);
   bool operator>(const vector2D& vec);
-  bool operator=(const vector2D& vec);
+  vector2D& operator=(const vector2D& vec);
+  vector2D operator+(const vector2D& vec);
 };
 
 
@@ -31,9 +33,14 @@ vector2D::vector2D(double x, double y)
 vector2D::~vector2D()
 {
 }
-void vector2D::printVector2D() const
+vector2D::vector2D(const vector2D &vec)
 {
-  printf("%lf,%lf\n",m_x,m_y);
+  m_x=vec.m_x;
+  m_y=vec.m_y;
+}
+void vector2D::print() const
+{
+  printf("%.2lf,%.2lf\n",m_x,m_y);
 }
 double vector2D::length() const
 {
@@ -55,3 +62,17 @@ bool vector2D::operator>(const vector2D& vec)
 {
   return m_x > vec.m_x || m_y > vec.m_y;
 }
+vector2D& vector2D::operator=(const vector2D& vec)
+{
+  if(&vec==this)
+    return *this;
+
+  m_x = vec.m_x;
+  m_y = vec.m_y;
+  return *this;
+}
+  vector2D vector2D::operator+(const vector2D& vec)
+  {
+    vector2D temp(m_x+vec.m_x,m_y+vec.m_y);
+    return temp;
+  }
