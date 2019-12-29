@@ -21,57 +21,38 @@ double sum(accountList * list)
 }
 
 
-int main()
+int main(int argc, char ** argv)
 {
+  
+  char * filename = new char[256];
+  if(argc>1)
+    {
+      filename = "data.out";
+    }
+  else
+    {
+      if(sizeof(argv[2])>sizeof(filename))
+	{
+	  filename = argv[2];
+	}
+      else
+	filename = "data.out";
+    }
+
+  
   accountList list;
-  list.readFile("data.out");
+  list.readFile(filename);
   list.printall();
   list.info();
-  //list.capitalize();
-  //list.remove(list.findByNum(1001));
-  list.writeFile("data.out");
+  list.writeFile(filename);
   double sum1 = sum(&list);
   printf("suma=%.2lf; srednia=%.2lf\n\n",sum1,sum1/list.getSize());
   list.removeall();
   
-  
-  list.readFile("data.out");
+  list.readFile(filename);
   list.printall();
   list.removeall();
   
-  
-  
-   /*
-  account test;
-  account user;
-  account::setInterest(10.);
-  user.getInterest();
-  user.deposit(100);
-  user.transferTo(&test, 80);
-  test.info();
-  user.info();
-  for(int i=0;i<10;i++)
-    {
-      printf("\n");
-      user.capitalize();
-      test.capitalize();
-      test.info();
-      user.info();
-    }
-  */
-  /*
-  account test1(300);
-  vipAccount test2(100);
-  test2.setInterest(3);
-  test1.info();
-  test2.info();
-  test1.transferTo(&test2, 100);
-  test1.info();
-  test2.info();
-  test2.transferTo(&test1, 100);
-  test1.info();
-  test2.info();
-  */
  
 }
 	 

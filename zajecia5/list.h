@@ -37,24 +37,28 @@ accountList::accountList()
 }
 accountList::~accountList()
 {
-  printf("destruktor ");
+  printf("destruktor\n");
   removeall();
 }
 void accountList::removeall()
 {
-  if(m_size=0)
+  if(m_size==0)
     return;
   printf("removing\n");
+  //info();
   account * ptr;
   account * ptr_next;
+  int freed = 0;
   for(int i=0;i<m_size;i++)
     {
       ptr=m_begin;
       ptr_next=ptr->m_next;
       delete ptr;
+      freed++;
     }
   m_begin=m_end=nullptr;
   m_size=0;
+  printf("\nfreed %d records\n", freed);
 }
 int accountList::getSize()
 {
