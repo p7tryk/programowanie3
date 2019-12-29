@@ -49,7 +49,7 @@ int main(int argc, char ** argv)
   printf("suma=%.2lf; srednia=%.2lf\n\n",sum1,sum1/list.getSize());
   list.removeall();
   
-  list.readFile(filename);
+ 
   list.printall();
   list.removeall();
   

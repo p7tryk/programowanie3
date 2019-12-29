@@ -58,7 +58,7 @@ void accountList::removeall()
     }
   m_begin=m_end=nullptr;
   m_size=0;
-  printf("\nfreed %d records\n", freed);
+  printf("\nremoved %d records,freed %ld bytes\n", freed, freed*sizeof(account));
 }
 int accountList::getSize()
 {
