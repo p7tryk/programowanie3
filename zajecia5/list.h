@@ -47,13 +47,17 @@ void accountList::removeall()
   printf("removing\n");
   //info();
   account * ptr;
-  account * ptr_next;
   int freed = 0;
-  for(int i=0;i<m_size;i++)
+  for(ptr=m_begin;ptr!=nullptr;ptr=ptr->m_next)
     {
-      ptr=m_begin;
-      ptr_next=ptr->m_next;
-      delete ptr;
+      if(ptr->m_next!=nullptr)
+	{
+	  delete ptr->m_prev;
+	}
+      else
+	{
+	  delete ptr;
+	}
       freed++;
     }
   m_begin=m_end=nullptr;
@@ -194,22 +198,24 @@ bool accountList::readFile(const char * filename)
     {
       if(fscanf(file,"%c%d%lf\n",&mode,&accnumber,&balance) ==EOF)
 	break;
-      read++;
+      
       switch(mode)
 	{
 	case 's':
 	  ptr = new studentAccount(balance,accnumber);
 	  this->addBegin(ptr);
+	  read++;
 	  break;
 	  
 	case 'v':
 	  ptr = new vipAccount(balance,accnumber);
 	  this->addBegin(ptr);
+	  read++;
 	  break;
 	}
       
     }
-  printf("read %d records\n\n",read);
+  printf("read %d records %ld bytes\n\n",read, read*sizeof(account));
   fclose(file);
 }
 

@@ -24,20 +24,7 @@ double sum(accountList * list)
 int main(int argc, char ** argv)
 {
   
-  char * filename = new char[256];
-  if(argc>1)
-    {
-      filename = "data.out";
-    }
-  else
-    {
-      if(sizeof(argv[2])>sizeof(filename))
-	{
-	  filename = argv[2];
-	}
-      else
-	filename = "data.out";
-    }
+  char filename[] = "data.out";
 
   
   accountList list;
@@ -52,7 +39,5 @@ int main(int argc, char ** argv)
  
   list.printall();
   list.removeall();
-  
- 
 }
 	 
