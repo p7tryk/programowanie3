@@ -10,7 +10,10 @@ int main()
   vector2D v2=v1;
   v2=v2+v1;
   double temp = v1*v2;
-  v2=v2*temp;
+  ++v2*=temp;
+  v2=v2++/temp;
+  v1=-v1;
+  ++v1;
   v1.print();
   v2.print();
   

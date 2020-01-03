@@ -16,17 +16,23 @@ class vector2D {
   double length() const;
   void print() const;
 
-  bool operator==(const vector2D& vec);
-  bool operator!=(const vector2D& vec);
-  bool operator<(const vector2D& vec);
-  bool operator>(const vector2D& vec);
+  bool operator==(const vector2D& vec) const;
+  bool operator!=(const vector2D& vec) const;
+  bool operator<(const vector2D& vec) const;
+  bool operator>(const vector2D& vec) const;
   vector2D& operator=(const vector2D& vec);
-  vector2D operator+(const vector2D& vec);
-  vector2D operator-(const vector2D& vec);
-  vector2D operator*(double val);
-  double operator*(const vector2D& vec);
-  vector2D operator/(double val);
-  vector2D operator-();
+  vector2D operator+(const vector2D& vec) const;
+  vector2D operator-(const vector2D& vec) const;
+  vector2D operator*(double val) const;
+  double operator*(const vector2D& vec) const;
+  vector2D operator/(double val) const;
+  vector2D operator-() const;
+  vector2D& operator*=(double val);
+  vector2D& operator/=(double val);
+  vector2D& operator++(); //prefix
+  vector2D operator++(int); //postifx
+  vector2D& operator--(); //prefix
+  vector2D operator--(int); //postifx
 };
 
 
@@ -54,19 +60,19 @@ double vector2D::length() const
 {
   return sqrt(m_x*m_y);
 }
-bool vector2D::operator==(const vector2D& vec)
+bool vector2D::operator==(const vector2D& vec) const
 {
   return m_x == vec.m_x && m_y == vec.m_y;
 }
-bool vector2D::operator!=(const vector2D& vec)
+bool vector2D::operator!=(const vector2D& vec) const
 {
   return !(m_x == vec.m_x && m_y == vec.m_y);
 }
-bool vector2D::operator<(const vector2D& vec)
+bool vector2D::operator<(const vector2D& vec) const
 {
   return m_x < vec.m_x || m_y < vec.m_y;
 }
-bool vector2D::operator>(const vector2D& vec)
+bool vector2D::operator>(const vector2D& vec) const
 {
   return m_x > vec.m_x || m_y > vec.m_y;
 }
@@ -80,38 +86,80 @@ vector2D& vector2D::operator=(const vector2D& vec)
   m_y = vec.m_y;
   return *this;
 }
-  vector2D vector2D::operator+(const vector2D& vec)
+  vector2D vector2D::operator+(const vector2D& vec) const
   {
     printf("operator+%p\n",this);
     vector2D temp(m_x+vec.m_x,m_y+vec.m_y);
     return temp;
   }
-vector2D vector2D::operator-(const vector2D& vec)
+vector2D vector2D::operator-(const vector2D& vec) const
   {
     printf("operator-%p\n",this);
     vector2D temp(m_x-vec.m_x,m_y-vec.m_y);
     return temp;
   }
-vector2D vector2D::operator*(double val)
+vector2D vector2D::operator*(double val) const
 {
   printf("mnozenie przez skalar %p\n",this);
   vector2D temp(m_x*val,m_y*val);
   return temp;
 }
-double vector2D::operator*(const vector2D& vec)
+double vector2D::operator*(const vector2D& vec) const
 {
   printf("iloczyn skalarny %p\n",this);
   return vec.m_x*m_x+vec.m_y*m_y;
 }
-vector2D vector2D::operator/(double val)
+vector2D vector2D::operator/(double val) const
 {
-  printf("dzielenie przez skalar %p",this);
+  printf("dzielenie przez skalar %p\n",this);
   vector2D temp(m_x/val,m_y/val);
   return temp;
 }
-vector2D vector2D::operator-()
+vector2D vector2D::operator-() const
 {
-  printf("operator negacja %p",this);
+  printf("operator negacja %p\n",this);
   vector2D temp(-m_x,-m_y);
+  return temp;
+}
+vector2D& vector2D::operator*=(double val)
+{
+  printf("operator *= %p\n",this);
+  m_x*=val;
+  m_y*=val;
+}
+vector2D& vector2D::operator/=(double val)
+{
+  printf("operator /= %p\n",this);
+  m_x*=val;
+  m_y*=val;
+}
+vector2D& vector2D::operator++()
+{
+  printf("++operator %p\n",this);
+  m_x++;
+  m_y++;
+  return *this;
+}
+vector2D vector2D::operator++(int)
+{
+  printf("operator++ %p\n",this);
+  vector2D temp(m_x,m_y);
+  m_x++;
+  m_y++;
+  return temp;
+}
+vector2D& vector2D::operator--()
+{
+  printf("--operator %p\n",this);
+  m_x++;
+  m_y++;
+  return *this;
+}
+vector2D vector2D::operator--(int)
+{
+  printf("operator-- %p\n",this);
+  vector2D temp(m_x,m_y);
+  m_x++;
+  m_y++;
   return temp;
 }
