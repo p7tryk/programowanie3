@@ -6,10 +6,11 @@ class array {
  private:
   int m_size = 0;
   double * m_data;
-  
+  double m_dummyData = 0;;
  public:
   array(int size);
   array(int size,double val);
+  array(const array& arr);
   ~array();
   void printArray() const;
   double getAt(int pos) const;
@@ -18,7 +19,13 @@ class array {
   void setSize(int newsize);
   void setSize(int newsize, double val);
   int getSize() const {return m_size;};
-  double operator[](int pos);
+  double& operator[](int pos);
+  //todo
+  array& operator=(const array& arr);
+  array& operator=(double var);
+  bool operator==(const array& arr) const;
+  bool operator!=(const array& arr) const;
+  array operator+(const array& arr) const;
 };
 
 
@@ -89,9 +96,48 @@ void array::setSize(int newsize, double val)
   for(int i=oldsize;i<m_size;i++)
     m_data[i] = val;
 }
-double array::operator[](int pos)
+double& array::operator[](int pos)
 {
   if(pos<0|| pos>m_size)
-    return 0;
+    return m_dummyData;
   return m_data[pos];
+}
+
+array& array::operator=(const array& arr)
+{
+  ///????????????????
+  
+};
+array& array::operator=(double var)
+{
+  fill(var);
+  return *this;
+};
+bool array::operator==(const array& arr) const
+{
+  if(m_size!=arr.m_size)
+    return false;
+  else
+    for(int i = 0;i<m_size;i++)
+      {
+	if(m_data[i]!=arr[i])
+	  return false;
+      }
+  return true;
+}
+bool array::operator!=(const array& arr) const
+{
+  if(m_size!=arr.m_size)
+    return true;
+  else
+    for(int i = 0;i<m_size;i++)
+      {
+	if(m_data[i]!=arr[i])
+	  return true;
+      }
+  return false;
+}
+array array::operator+(const array& arr) const
+{
+  
 }

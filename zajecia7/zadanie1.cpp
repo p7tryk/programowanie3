@@ -14,6 +14,9 @@ int main()
   v2=v2++/temp;
   v1=-v1;
   ++v1;
+  vector2D v4(1,1);
+  vector2D v3 = v4 + 2 + 1 + 15;
+  v3.print();
   v1.print();
   v2.print();
   

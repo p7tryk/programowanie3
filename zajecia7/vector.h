@@ -21,8 +21,9 @@ class vector2D {
   bool operator<(const vector2D& vec) const;
   bool operator>(const vector2D& vec) const;
   vector2D& operator=(const vector2D& vec);
-  vector2D operator+(const vector2D& vec) const;
-  vector2D operator-(const vector2D& vec) const;
+
+
+  
   vector2D operator*(double val) const;
   double operator*(const vector2D& vec) const;
   vector2D operator/(double val) const;
@@ -33,8 +34,23 @@ class vector2D {
   vector2D operator++(int); //postifx
   vector2D& operator--(); //prefix
   vector2D operator--(int); //postifx
-};
 
+  friend vector2D operator+(const vector2D& vec1, const vector2D& vec2);
+  friend vector2D operator-(const vector2D& vec1, const vector2D& vec2);
+
+};
+vector2D operator+(const vector2D& vec1, const vector2D& vec2)
+{
+  printf("operator globalny +\n");
+  vector2D temp(vec1.m_x+vec2.m_x,vec1.m_y+vec2.m_y);
+  return temp;
+}
+vector2D operator-(const vector2D& vec1, const vector2D& vec2)
+{
+  printf("operator globalny -\n");
+  vector2D temp(vec1.m_x-vec2.m_x,vec1.m_y-vec2.m_y);
+  return temp;
+}
 
 vector2D::vector2D(double x, double y)
 {
@@ -81,23 +97,11 @@ vector2D& vector2D::operator=(const vector2D& vec)
   printf("operator=%p\n",this);
   if(&vec==this)
     return *this;
-
+  
   m_x = vec.m_x;
   m_y = vec.m_y;
   return *this;
 }
-  vector2D vector2D::operator+(const vector2D& vec) const
-  {
-    printf("operator+%p\n",this);
-    vector2D temp(m_x+vec.m_x,m_y+vec.m_y);
-    return temp;
-  }
-vector2D vector2D::operator-(const vector2D& vec) const
-  {
-    printf("operator-%p\n",this);
-    vector2D temp(m_x-vec.m_x,m_y-vec.m_y);
-    return temp;
-  }
 vector2D vector2D::operator*(double val) const
 {
   printf("mnozenie przez skalar %p\n",this);
