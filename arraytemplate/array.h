@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <new> //for bad_alloc exception
+#include <iostream>
+//using namespace std;
 
 class index_exception
 {
@@ -55,10 +57,10 @@ class array {
   //friend array operator-(const array& arr1, const array& arr2);
 };
 /*
-array operator+(const array& arr1, const array& arr2)
+array<T> operator+(const array<T>& arr1, const array<T>& arr2)
 {
   int newsize = arr1.m_size>arr2.m_size ? arr1.m_size : arr2.m_size;
-  array newarray(newsize);
+  array<T> newarray(newsize);
 
   for(int i=0;i<newsize;i++)
     {
@@ -75,7 +77,7 @@ array operator+(const array& arr1, const array& arr2)
 }
 */
 template<typename T>
-array& array::operator/(T val)
+array<T>& array<T>::operator/(T val)
 {
   if(val==0)
     throw divbyzero_exception();
@@ -86,10 +88,10 @@ array& array::operator/(T val)
 }
 
 template<typename T>
-array array::operator+(const array& arr2) const
+array<T> array<T>::operator+(const array<T>& arr2) const
 {
   int newsize = this->m_size>arr2.m_size ? this->m_size : arr2.m_size;
-  array newarray(newsize);
+  array<T> newarray(newsize);
   
   for(int i=0;i<newsize;i++)
     {
@@ -105,10 +107,10 @@ array array::operator+(const array& arr2) const
   return newarray;
 }
 template<typename T>
-array array::operator-(const array& arr2) const
+array<T> array<T>::operator-(const array<T>& arr2) const
 {
   int newsize = this->m_size>arr2.m_size ? this->m_size : arr2.m_size;
-  array newarray(newsize);
+  array<T> newarray(newsize);
   for(int i=0;i<newsize;i++)
     {
       if(i>(this->m_size<arr2.m_size ? this->m_size : arr2.m_size))
@@ -123,7 +125,7 @@ array array::operator-(const array& arr2) const
   return newarray;
 }
 template<typename T>
-array::array(int size)
+array<T>::array(int size)
 {
   try{
   m_data = new T[size];
@@ -135,7 +137,7 @@ array::array(int size)
   m_size = size;
 }
 template<typename T>
-array::array(int size,T val)
+array<T>::array(int size,T val)
 {
   m_size=size;
   m_data = new(std::nothrow) T[size];
@@ -144,7 +146,7 @@ array::array(int size,T val)
   fill(val);
 }
 template<typename T>
-array::array(const array& arr)
+array<T>::array(const array<T>& arr)
 {
   m_size = arr.m_size;
   m_dummyData = arr.m_dummyData;
@@ -156,36 +158,38 @@ array::array(const array& arr)
   printf("copy\n");
 }
 template<typename T>
-array::~array()
+array<T>::~array()
 {
   delete m_data;
   m_size = 0;
 }
 template<typename T>
-void array::printArray() const
+void array<T>::printArray() const
 {
+
   for(int i=0;i<m_size;i++)
     {
-      printf("[%d]=%.3lf\n",i,m_data[i]);
+      
+      std::cout<<m_data[i]<<" ";
     }
   printf("\n");
 }
 template<typename T>
-bool array::setAt(int pos, T val)
+bool array<T>::setAt(int pos, T val)
 {
   if(pos<0|| pos>m_size)
     return 0;
   m_data[pos] = val;
 }
 template<typename T>
-T array::getAt(int pos) const
+T array<T>::getAt(int pos) const
 {
   if(pos<0|| pos>m_size)
     return 0;
   return m_data[pos];
 }
 template<typename T>
-void array::fill(T val)
+void array<T>::fill(T val)
 {
   for(int i=0;i<m_size;i++)
     {
@@ -193,7 +197,7 @@ void array::fill(T val)
     }
 }
 template<typename T>
-void array::setSize(int newsize)
+void array<T>::setSize(int newsize)
 {
   if(m_size==newsize)
     return;
@@ -207,7 +211,7 @@ void array::setSize(int newsize)
   m_size=newsize;
 }
 template<typename T>
-void array::setSize(int newsize, T val)
+void array<T>::setSize(int newsize, T val)
 {
   int oldsize = m_size;
   setSize(newsize);
@@ -217,7 +221,7 @@ void array::setSize(int newsize, T val)
     m_data[i] = val;
 }
 template<typename T>
-T& array::operator[](int pos)
+T& array<T>::operator[](int pos)
 {
   if(pos>m_size)
     {
@@ -228,7 +232,7 @@ T& array::operator[](int pos)
   return m_data[pos];
 }
 template<typename T>
-array& array::operator=(const array& arr)
+array<T>& array<T>::operator=(const array<T>& arr)
 {
   if(*this==arr)
     return *this;
@@ -248,13 +252,13 @@ array& array::operator=(const array& arr)
   
 };
 template<typename T>
-array& array::operator=(T var)
+array<T>& array<T>::operator=(T var)
 {
   fill(var);
   return *this;
 };
 template<typename T>
-bool array::operator==(const array& arr) const
+bool array<T>::operator==(const array<T>& arr) const
 {
   if(m_size!=arr.m_size)
     return false;
@@ -267,7 +271,7 @@ bool array::operator==(const array& arr) const
   return true;
 }
 template<typename T>
-bool array::operator!=(const array& arr) const
+bool array<T>::operator!=(const array<T>& arr) const
 {
   if(m_size!=arr.m_size)
     return true;
@@ -280,7 +284,7 @@ bool array::operator!=(const array& arr) const
   return false;
 }
 /*
-array array::operator+(const array& arr) const
+array<T> array<T>::operator+(const array<T>& arr) const
 {
   
 }

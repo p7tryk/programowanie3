@@ -4,7 +4,6 @@
 #include <math.h>
 #include <new>  //zeby lapac badalloc
 
-using namespace std;
 /*
 void fun(array<double& arr)
 {
@@ -78,8 +77,13 @@ int main()
   ar4 = ar4 - ar2;
   printf("=\n");
   ar4.printArray();
-  
-  
+  printf("\n");
+  array<char> archar(12,'C');
+  archar.printArray();
+  array<char> archar2(12,' ');
+  printf("\n");
+  archar2 = archar + archar2;
+  archar2.printArray();
   
   /*
   printf("\n%lf\n",s);
