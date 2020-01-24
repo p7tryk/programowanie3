@@ -23,32 +23,33 @@ class memory_exception
 {
 };
 
+template<class T>
 class array {
  private:
   int m_size = 0;
-  double * m_data;
-  double m_dummyData = 0;;
+  T * m_data;
+  T* m_dummyData = 0;;
  public:
   array(int size);
-  array(int size,double val);
+  array(int size,T val);
   array(const array& arr);
   ~array();
   void printArray() const;
-  double getAt(int pos) const;
-  bool setAt(int post, double val);
-  void fill(double val);
+  T getAt(int pos) const;
+  bool setAt(int post, T val);
+  void fill(T val);
   void setSize(int newsize);
-  void setSize(int newsize, double val);
+  void setSize(int newsize, T val);
   int getSize() const {return m_size;};
-  double& operator[](int pos);
+  T& operator[](int pos);
   //todo
   array& operator=(const array& arr);
-  array& operator=(double var);
+  array& operator=(T var);
   bool operator==(const array& arr) const;
   bool operator!=(const array& arr) const;
   array operator+(const array& arr2) const;
   array operator-(const array& arr2) const;
-  array& operator/(double val);
+  array& operator/(T val);
 
   //friend array operator+(const array& arr1, const array& arr2);
   //friend array operator-(const array& arr1, const array& arr2);
@@ -73,7 +74,8 @@ array operator+(const array& arr1, const array& arr2)
   return newarray;
 }
 */
-array& array::operator/(double val)
+template<typename T>
+array& array::operator/(T val)
 {
   if(val==0)
     throw divbyzero_exception();
@@ -83,7 +85,7 @@ array& array::operator/(double val)
   return *this;
 }
 
-
+template<typename T>
 array array::operator+(const array& arr2) const
 {
   int newsize = this->m_size>arr2.m_size ? this->m_size : arr2.m_size;
@@ -102,6 +104,7 @@ array array::operator+(const array& arr2) const
     }
   return newarray;
 }
+template<typename T>
 array array::operator-(const array& arr2) const
 {
   int newsize = this->m_size>arr2.m_size ? this->m_size : arr2.m_size;
@@ -119,11 +122,11 @@ array array::operator-(const array& arr2) const
     }
   return newarray;
 }
-
+template<typename T>
 array::array(int size)
 {
   try{
-  m_data = new double[size];
+  m_data = new T[size];
   }
   catch(std::bad_alloc &ex)
     {
@@ -131,30 +134,34 @@ array::array(int size)
     }
   m_size = size;
 }
-array::array(int size,double val)
+template<typename T>
+array::array(int size,T val)
 {
   m_size=size;
-  m_data = new(std::nothrow) double[size];
+  m_data = new(std::nothrow) T[size];
   if(!m_data)
       throw memory_exception();
   fill(val);
 }
+template<typename T>
 array::array(const array& arr)
 {
   m_size = arr.m_size;
   m_dummyData = arr.m_dummyData;
-  m_data = new double[m_size = arr.m_size];
+  m_data = new T[m_size = arr.m_size];
   for(int i= 0; i<m_size;i++)
     {
       m_data[i]=arr.m_data[i];
     }
   printf("copy\n");
 }
+template<typename T>
 array::~array()
 {
   delete m_data;
   m_size = 0;
 }
+template<typename T>
 void array::printArray() const
 {
   for(int i=0;i<m_size;i++)
@@ -163,31 +170,34 @@ void array::printArray() const
     }
   printf("\n");
 }
-
-bool array::setAt(int pos, double val)
+template<typename T>
+bool array::setAt(int pos, T val)
 {
   if(pos<0|| pos>m_size)
     return 0;
   m_data[pos] = val;
 }
-double array::getAt(int pos) const
+template<typename T>
+T array::getAt(int pos) const
 {
   if(pos<0|| pos>m_size)
     return 0;
   return m_data[pos];
 }
-void array::fill(double val)
+template<typename T>
+void array::fill(T val)
 {
   for(int i=0;i<m_size;i++)
     {
       m_data[i] = val;
     }
 }
+template<typename T>
 void array::setSize(int newsize)
 {
   if(m_size==newsize)
     return;
-  double * ptr = new double[newsize];
+  T * ptr = new T[newsize];
   for(int i = 0; i<newsize&&newsize<m_size;i++)
     {
       ptr[i] = m_data[i];
@@ -196,7 +206,8 @@ void array::setSize(int newsize)
   m_data=ptr;
   m_size=newsize;
 }
-void array::setSize(int newsize, double val)
+template<typename T>
+void array::setSize(int newsize, T val)
 {
   int oldsize = m_size;
   setSize(newsize);
@@ -205,7 +216,8 @@ void array::setSize(int newsize, double val)
   for(int i=oldsize;i<m_size;i++)
     m_data[i] = val;
 }
-double& array::operator[](int pos)
+template<typename T>
+T& array::operator[](int pos)
 {
   if(pos>m_size)
     {
@@ -215,7 +227,7 @@ double& array::operator[](int pos)
     throw negative_index_exception(pos);
   return m_data[pos];
 }
-
+template<typename T>
 array& array::operator=(const array& arr)
 {
   if(*this==arr)
@@ -223,7 +235,7 @@ array& array::operator=(const array& arr)
   if(m_size!=arr.m_size)
     {
       delete m_data;
-      m_data = new double[m_size=arr.m_size];
+      m_data = new T[m_size=arr.m_size];
     }
   for(int i = 0; i<m_size;i++)
     {
@@ -235,11 +247,13 @@ array& array::operator=(const array& arr)
   return *this;
   
 };
-array& array::operator=(double var)
+template<typename T>
+array& array::operator=(T var)
 {
   fill(var);
   return *this;
 };
+template<typename T>
 bool array::operator==(const array& arr) const
 {
   if(m_size!=arr.m_size)
@@ -252,6 +266,7 @@ bool array::operator==(const array& arr) const
       }
   return true;
 }
+template<typename T>
 bool array::operator!=(const array& arr) const
 {
   if(m_size!=arr.m_size)

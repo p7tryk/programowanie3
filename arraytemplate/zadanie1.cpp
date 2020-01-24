@@ -4,8 +4,9 @@
 #include <math.h>
 #include <new>  //zeby lapac badalloc
 
-
-void fun(array& arr)
+using namespace std;
+/*
+void fun(array<double& arr)
 {
   try{
     arr[arr.getSize()+10]=10;
@@ -16,24 +17,24 @@ void fun(array& arr)
       throw;
     }
 }
-void sinus(array & arr)
+void sinus(array<double& arr)
 {
   for(int i=0; i<arr.getSize();i++)
     {
       arr[i]+= sin(i/10.0);
     }
 }
-
+*/
 int main()
 {
-  int s = 10'000'000;
   //unsigned int s = 100;
-  array ar(10,1);
+  array<double> ar(10,1);
   ar[2] = 2;
-  array ar2 = ar;
+  array<double> ar2 = ar;
+  /*
   try
     {
-      array ar10(s,1);
+      array ar10<double>(s,1);
       //scanf("%d");
       ar2=ar2/1;
       ar2[2] = 4;
@@ -64,12 +65,12 @@ int main()
       printf("jakis blad\n");
       throw;
     }
-  
-  array ar3(12,3);
+  */
+  array<double> ar3(12,3);
   ar.printArray();
   printf("+\n");
   ar3.printArray();
-  array ar4 = ar + ar3;
+  array<double> ar4 = ar + ar3;
   printf("=\n");
   ar4.printArray();
   printf("-\n");
