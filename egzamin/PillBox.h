@@ -18,7 +18,7 @@ class invalidtake
   void status() const
   {
       printf("%d tabletek, %d do pobrania \ndelta=%d\n",m_exists,m_taken,m_exists-m_taken);
-    }
+  }
 };
 class takefromzero : public invalidtake
 {
@@ -41,14 +41,14 @@ class PillBox
   PillBox(const PillBox& box);
   //~PillBox();
 
-  void take(int num);
+  virtual void take(int num);
   void refill(int num);
   void empty();
   int getNumber() const;
   void status();
 
   PillBox& operator=(const PillBox& box);
-  PillBox& operator+=(PillBox& box); //nie mozna zrobic za pomoca take() bo pillboxcnt bedzie liczyl przepisywanie
+  PillBox& operator+=(PillBox& box); //nie mozna zrobic za pomoca take() bo pillboxcnt bedzie liczyl przesypywanie
   PillBox& operator-=(PillBox& box);
 
   //friend operatory globalne

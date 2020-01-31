@@ -16,18 +16,18 @@ int main()
   pb3.status();
   pb3=pb1;
   pb3.status();
-  printf("\n");
 
   //pillbox count
   printf("\n\npillbox count, take(4), take(5)\n");
   PillBoxCnt pb2;
+  printf("%d taken\n",pb2.getTotal());
   pb2.refill(6);
   pb2.take(5);
   pb2.refill(10);
   pb2.take(4);
   printf("%d taken\n",pb2.getTotal());
 
-  printf("\n\nprzypisywanie");
+  printf("\n\nprzesypywanie\n");
   //przesypywanie
   PillBox pb4(10);
   PillBox pb5(6);
@@ -40,15 +40,18 @@ int main()
   printf("pb5=");
   pb5.status();
 
-  printf("pb4+=pb5 ");
+  printf("\npb4+=pb5\n");
   pb4+=pb5;
-  pb4.status();
-  printf("pb4-=pb5\n");
-  printf("pb5=");
-  pb4-=pb5;
-  pb5.status();
   printf("pb4=");
   pb4.status();
+  printf("pb5=");
+  pb5.status();
+  printf("\npb4-=pb5\n");
+  printf("pb4=");
+  pb4-=pb5;
+  pb4.status();
+  printf("pb5=");
+  pb5.status();
 
   
   //operatory globalne
@@ -62,7 +65,10 @@ int main()
   printf("\npb4<pb5\npb4=%d,pb5=%d\n%s\n",pb4.getNumber(),pb5.getNumber(),pb4<pb5 ? "true" : "false");
 
   printf("\n\nwyjatki\n");
-  PillBox pb7;
+  int input;
+  printf("ile elementow w pb7? take(11)\n");
+  scanf("%d",&input);
+  PillBox pb7(input);
   try
     {
       pb7.take(11);
