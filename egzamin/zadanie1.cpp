@@ -71,7 +71,7 @@ int main()
   PillBox pb7(input);
   try
     {
-      pb7.take(11);
+      pb7.take(0);
     }
   catch(takefromzero &ex)
     {

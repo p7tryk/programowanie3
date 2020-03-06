@@ -44,7 +44,7 @@ class PillBox
   virtual void take(int num);
   void refill(int num);
   void empty();
-  int getNumber() const;
+  int getCharge() const;
   void status();
 
   PillBox& operator=(const PillBox& box);
@@ -74,26 +74,26 @@ void PillBox::status()
 //operatory globalne
 PillBox operator+(const PillBox& box1, const PillBox& box2)
 {
-  PillBox temp(box1.getNumber()+box2.getNumber());
+  PillBox temp(box1.getCharge()+box2.getCharge());
   return temp;
 }
 bool operator==(const PillBox& box1, const PillBox& box2)
 {
-  if(box1.getNumber()==box2.getNumber())
+  if(box1.getCharge()==box2.getCharge())
     return true;
   else
     return false;
 }
 bool operator>(const PillBox& box1, const PillBox& box2)
 {
-  if(box1.getNumber()>box2.getNumber())
+  if(box1.getCharge()>box2.getCharge())
     return true;
   else
     return false;
 }
 bool operator<(const PillBox& box1, const PillBox& box2)
 {
-  if(box1.getNumber()<box2.getNumber())
+  if(box1.getCharge()<box2.getCharge())
     return true;
   else
     return false;
@@ -135,7 +135,7 @@ void PillBox::empty()
 {
   m_pillsNum=0;
 }
-int PillBox::getNumber() const
+int PillBox::getCharge() const
 {
   return m_pillsNum;
 }
